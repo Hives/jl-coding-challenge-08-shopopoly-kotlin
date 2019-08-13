@@ -20,12 +20,3 @@ sealed class Location {
         val megastore: DevelopmentType.CostAndRent
     ) : Location()
 }
-
-sealed class DevelopmentType {
-    data class RentOnly(val rent: Int)
-    data class CostAndRent(val cost: Int, val rent: Int)
-}
-
-enum class Group {
-    RED, GREEN, BLUE, YELLOW
-}
