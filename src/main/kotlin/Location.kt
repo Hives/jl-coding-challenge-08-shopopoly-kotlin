@@ -8,18 +8,6 @@ sealed class Location {
     class FactoryOrWarehouse(val name: String) : Location() {
         val cost = 100
         val rent = 20
-
-        companion object {
-            val maxInstances = 4
-            var instances = 0
-        }
-
-        init {
-            if (instances == maxInstances) {
-                throw Exception("Couldn't create location. Maximum of $maxInstances factory or warehouse sites allowed.")
-            }
-            instances++
-        }
     }
 
     class Retail(
@@ -30,19 +18,7 @@ sealed class Location {
         val ministore: DevelopmentType.CostAndRent,
         val supermarket: DevelopmentType.CostAndRent,
         val megastore: DevelopmentType.CostAndRent
-    ) : Location() {
-        companion object {
-            val maxInstances = 20
-            var instances = 0
-        }
-
-        init {
-            if (instances == maxInstances) {
-                throw Exception("Couldn't create location. Maximum of $maxInstances retail sites allowed.")
-            }
-            instances++
-        }
-    }
+    ) : Location()
 }
 
 sealed class DevelopmentType {
