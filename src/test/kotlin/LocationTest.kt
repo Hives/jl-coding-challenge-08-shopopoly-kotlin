@@ -17,7 +17,7 @@ internal class LocationTest {
 
         assertTrue(go is Location)
         assertTrue(go is Location.Go)
-        assertEquals(go.bonus, 100)
+    assertEquals(go.bonus, GBP(100))
     }
 
     @Test
@@ -26,34 +26,34 @@ internal class LocationTest {
 
         assertTrue(factory is Location)
         assertTrue(factory is Location.FactoryOrWarehouse)
-        assertEquals(100, factory.cost)
-        assertEquals(20, factory.rent)
+        assertEquals(GBP(100), factory.cost)
+        assertEquals(GBP(20), factory.rent)
         assertEquals("My factory", factory.name)
     }
 
-        @Test
-        fun `can create Retail location`() {
-            val retail = Location.Retail(
-                name = "My retail location",
-                cost = 300,
-                group = Group.BLUE,
-                undeveloped = DevelopmentType.RentOnly(10),
-                ministore = DevelopmentType.CostAndRent(200, 20),
-                supermarket = DevelopmentType.CostAndRent(300, 30),
-                megastore = DevelopmentType.CostAndRent(400, 40)
-            )
-            assertTrue(retail is Location)
-            assertTrue(retail is Location.Retail)
-            assertEquals("My retail location", retail.name)
-            assertEquals(300, retail.cost)
-            assertEquals(Group.BLUE, retail.group)
-            assertEquals(10, retail.undeveloped.rent)
-            assertEquals(20, retail.ministore.rent)
-            assertEquals(200, retail.ministore.cost)
-            assertEquals(30, retail.supermarket.rent)
-            assertEquals(300, retail.supermarket.cost)
-            assertEquals(40, retail.megastore.rent)
-            assertEquals(400, retail.megastore.cost)
-        }
+    @Test
+    fun `can create Retail location`() {
+        val retail = Location.Retail(
+            name = "My retail location",
+            cost = GBP(300),
+            group = Group.BLUE,
+            undeveloped = DevelopmentType.RentOnly(GBP(10)),
+            ministore = DevelopmentType.CostAndRent(GBP(200), GBP(20)),
+            supermarket = DevelopmentType.CostAndRent(GBP(300), GBP(30)),
+            megastore = DevelopmentType.CostAndRent(GBP(400), GBP(40))
+        )
+        assertTrue(retail is Location)
+        assertTrue(retail is Location.Retail)
+        assertEquals("My retail location", retail.name)
+        assertEquals(GBP(300), retail.cost)
+        assertEquals(Group.BLUE, retail.group)
+        assertEquals(GBP(10), retail.undeveloped.rent)
+        assertEquals(GBP(20), retail.ministore.rent)
+        assertEquals(GBP(200), retail.ministore.cost)
+        assertEquals(GBP(30), retail.supermarket.rent)
+        assertEquals(GBP(300), retail.supermarket.cost)
+        assertEquals(GBP(40), retail.megastore.rent)
+        assertEquals(GBP(400), retail.megastore.cost)
+    }
 
 }

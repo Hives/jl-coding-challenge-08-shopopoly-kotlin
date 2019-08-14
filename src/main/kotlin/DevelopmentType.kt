@@ -1,4 +1,4 @@
 sealed class DevelopmentType {
-    data class RentOnly(val rent: Int) : DevelopmentType()
-    data class CostAndRent(val cost: Int, val rent: Int) : DevelopmentType()
+    data class RentOnly(val rent: GBP) : DevelopmentType()
+    data class CostAndRent(val cost: GBP, val rent: GBP) : DevelopmentType()
 }
