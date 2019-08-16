@@ -2,8 +2,9 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 internal class GameLedgerTest {
-    val player1 = Player("Paul")
-    val player2 = Player("Yvonne")
+    val board = Board(20) // should mock this!
+    val player1 = Player("Paul", board)
+    val player2 = Player("Yvonne", board)
     val oxfordStreet = Location.Retail(
         name = "Oxford Street",
         cost = GBP(1000),
