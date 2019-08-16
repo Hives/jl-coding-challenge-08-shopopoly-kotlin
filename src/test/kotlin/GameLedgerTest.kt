@@ -2,7 +2,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 internal class GameLedgerTest {
-    val board = Board(20) // should mock this!
+    val board = Board(emptyList()) // should mock this!
     val player1 = Player("Paul", board)
     val player2 = Player("Yvonne", board)
     val oxfordStreet = Location.Retail(

@@ -1,7 +1,7 @@
 sealed class Location {
     object FreeParking : Location()
 
-    class Go : Location() {
+    object Go : Location() {
         val bonus = GBP(100)
     }
 

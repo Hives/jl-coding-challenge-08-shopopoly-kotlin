@@ -13,7 +13,7 @@ internal class LocationTest {
 
     @Test
     fun `can create Go location`() {
-        val go = Location.Go()
+        val go = Location.Go
 
         assertTrue(go is Location)
         assertTrue(go is Location.Go)
