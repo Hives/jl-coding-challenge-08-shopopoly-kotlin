@@ -17,7 +17,7 @@ internal class LocationTest {
 
         assertTrue(go is Location)
         assertTrue(go is Location.Go)
-    assertEquals(go.bonus, GBP(100))
+        assertEquals(go.bonus, GBP(100))
     }
 
     @Test

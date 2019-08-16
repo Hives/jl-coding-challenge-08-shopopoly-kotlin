@@ -5,8 +5,7 @@ sealed class Location {
         val bonus = GBP(100)
     }
 
-    class FactoryOrWarehouse(val name: String) : Location(), Purchasable, Rentable {
-        override val cost = GBP(100)
+    class FactoryOrWarehouse(val name: String) : Purchasable(GBP(100)), Rentable {
         val rent = GBP(20)
     }
 
@@ -18,12 +17,10 @@ sealed class Location {
         val ministore: DevelopmentType.CostAndRent,
         val supermarket: DevelopmentType.CostAndRent,
         val megastore: DevelopmentType.CostAndRent
-    ) : Location(), Purchasable, Rentable
+    ) : Purchasable(cost), Rentable
+
+    open class Purchasable(open val cost: GBP) : Location()
 
     interface Rentable
-
-    interface Purchasable {
-        val cost: GBP
-    }
 
 }
