@@ -45,8 +45,6 @@ object GameLedger {
         val payer: Role,
         val receiver: Role,
         val amount: GBP
-//        val location: Location? = null, // : Purchaseable or : Rentable?
-//        val developmentLevel: DevelopmentLevel? = null
     ) {
         class Bonus(receiver: Player, amount: GBP) :
             Transaction(Bank, receiver, amount)
@@ -58,6 +56,6 @@ object GameLedger {
             Transaction(player, Bank, location.cost)
 
         class Development(player: Player, amount: GBP, val location: Location, val developmentLevel: DevelopmentLevel) :
-            Transaction(player, Bank, amount) {}
+            Transaction(player, Bank, amount)
     }
 }
