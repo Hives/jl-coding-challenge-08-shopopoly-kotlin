@@ -7,7 +7,7 @@ class Board(val locations: List<Location>) {
             locations.slice(startingSpace..endingSpace).contains(Location.Go)
         } else {
             locations.slice(startingSpace..locations.size - 1).contains(Location.Go) ||
-                    locations.slice(0..endingSpace).contains(Location.Go)
+                   locations.slice(0..endingSpace).contains(Location.Go)
         }
     }
 }
