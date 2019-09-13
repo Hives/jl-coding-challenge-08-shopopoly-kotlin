@@ -60,4 +60,9 @@ internal class GameLedgerTest {
     fun `player's balance is 0 in a new game`() {
         assertEquals(GameLedger.getBalance(player1), GBP(0))
     }
+    @Test
+    fun `player's balance reflects bonus payment`() {
+        GameLedger.payPlayerBonus(player1,GBP(100))
+        assertEquals(GameLedger.getBalance(player1),GBP(100))
+    }
 }

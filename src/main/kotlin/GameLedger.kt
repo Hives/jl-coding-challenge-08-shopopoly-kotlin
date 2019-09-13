@@ -40,9 +40,10 @@ object GameLedger {
             )
         )
     }
-    fun getBalance(player:Player):GBP{
-        return GBP(0)
-    }
+    fun getBalance(player:Player) = GBP(
+            history.filter { it.receiver == player }.map { it.amount.value }.sum()
+        )
+
     sealed class Transaction(
         val payer: Role,
         val receiver: Role,
