@@ -40,10 +40,16 @@ object GameLedger {
             )
         )
     }
-    fun getBalance(player:Player) = GBP(
-            history.filter { it.receiver == player }.map { it.amount.value }.sum()
-                    - history.filter { it.payer == player }.map { it.amount.value }.sum()
-        )
+
+    fun getBalance(player: Player): Balance {
+        val sumOfTransactions = history.filter { it.receiver == player }.map { it.amount.value }.sum() -
+                history.filter { it.payer == player }.map { it.amount.value }.sum()
+        return if (sumOfTransactions >= 0 ) {
+            Credit(GBP(sumOfTransactions))
+        } else {
+            Debit(GBP(sumOfTransactions))
+        }
+    }
 
     sealed class Transaction(
         val payer: Role,

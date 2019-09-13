@@ -1,3 +1,5 @@
+import assertk.assertThat
+import assertk.assertions.isEqualTo
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
@@ -58,20 +60,19 @@ internal class GameLedgerTest {
 
     @Test
     fun `player's balance is 0 in a new game`() {
-        assertEquals(GameLedger.getBalance(player1), GBP(0))
+        assertEquals(GameLedger.getBalance(player1), Credit(GBP(0)))
     }
     @Test
     fun `player's balance reflects bonus payment`() {
         GameLedger.payPlayerBonus(player1,GBP(100))
-        assertEquals(GameLedger.getBalance(player1),GBP(100))
+        assertEquals(GameLedger.getBalance(player1),Credit(GBP(100)))
     }
 
     @Test
     fun `player's balance reflects bonus credit and rent debit payments`() {
         GameLedger.payPlayerBonus(player1, GBP(100))
         GameLedger.payRent(player1, player2, GBP(50), oxfordStreet)
-
-        assertEquals(GameLedger.getBalance(player1), GBP(50))
+        assertThat(GameLedger.getBalance(player1)).isEqualTo(Credit(GBP(50)))
     }
 
     @Test
@@ -82,6 +83,14 @@ internal class GameLedgerTest {
         GameLedger.purchaseLocation(player1, oxfordStreet)
         GameLedger.developLocation(player1, oxfordStreet, DevelopmentLevel.MINISTORE)
 
-        assertEquals(GameLedger.getBalance(player1), GBP(310))
+        assertEquals(GameLedger.getBalance(player1), Credit(GBP(310)))
+    }
+
+    @Test
+    fun `handles negative player balances`() {
+        GameLedger.payPlayerBonus(player1 , GBP(10))
+        GameLedger.payRent(player1, player2, GBP(20), oxfordStreet)
+
+        assertEquals(GameLedger.getBalance(player1), Debit(GBP(10)))
     }
 }

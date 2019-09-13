@@ -9,3 +9,10 @@ class GBP(val _value: Int) {
 
     override fun equals(other: Any?) : Boolean = other is GBP && other.value == this.value
 }
+
+interface Balance {
+    val value: GBP
+}
+
+data class Credit(override val value: GBP): Balance
+data class Debit(override val value: GBP) : Balance
