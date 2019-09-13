@@ -30,11 +30,11 @@ object GameLedger {
         )
     }
 
-    fun developLocation(player: Player, amount: GBP, location: Location.Retail, level: DevelopmentLevel) {
+    fun developLocation(player: Player, location: Location.Retail, level: DevelopmentLevel) {
         history.add(
             Transaction.Development(
                 player = player,
-                amount = amount,
+                amount = location.developmentCost(level),
                 location = location,
                 developmentLevel = level
             )

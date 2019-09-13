@@ -47,7 +47,7 @@ internal class GameLedgerTest {
 
     @Test
     fun `player develops a location`() {
-        GameLedger.developLocation(player1, GBP(300), oxfordStreet, DevelopmentLevel.SUPERMARKET)
+        GameLedger.developLocation(player1, oxfordStreet, DevelopmentLevel.SUPERMARKET)
         val transaction = GameLedger.history.last() as GameLedger.Transaction.Development
         assertEquals(player1, transaction.payer)
         assertEquals(Bank, transaction.receiver)
@@ -80,8 +80,8 @@ internal class GameLedgerTest {
         GameLedger.payRent(player1, player2, GBP(10), oxfordStreet)
         GameLedger.payRent(player2, player1, GBP(20), oxfordStreet)
         GameLedger.purchaseLocation(player1, oxfordStreet)
-        GameLedger.developLocation(player1, GBP(30), oxfordStreet, DevelopmentLevel.MINISTORE)
+        GameLedger.developLocation(player1, oxfordStreet, DevelopmentLevel.MINISTORE)
 
-        assertEquals(GameLedger.getBalance(player1), GBP(480))
+        assertEquals(GameLedger.getBalance(player1), GBP(310))
     }
 }
