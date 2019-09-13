@@ -40,7 +40,9 @@ object GameLedger {
             )
         )
     }
-
+    fun getBalance(player:Player):GBP{
+        return GBP(0)
+    }
     sealed class Transaction(
         val payer: Role,
         val receiver: Role,

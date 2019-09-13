@@ -56,4 +56,8 @@ internal class GameLedgerTest {
         assertEquals(DevelopmentLevel.SUPERMARKET, transaction.developmentLevel)
     }
 
+    @Test
+    fun `player's balance is 0 in a new game`() {
+        assertEquals(GameLedger.getBalance(player1), GBP(0))
+    }
 }
