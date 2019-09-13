@@ -65,4 +65,23 @@ internal class GameLedgerTest {
         GameLedger.payPlayerBonus(player1,GBP(100))
         assertEquals(GameLedger.getBalance(player1),GBP(100))
     }
+
+    @Test
+    fun `player's balance reflects bonus credit and rent debit payments`() {
+        GameLedger.payPlayerBonus(player1, GBP(100))
+        GameLedger.payRent(player1, player2, GBP(50), oxfordStreet)
+
+        assertEquals(GameLedger.getBalance(player1), GBP(50))
+    }
+
+    @Test
+    fun `player's balance reflects all varieties of transactions`() {
+        GameLedger.payPlayerBonus(player1, GBP(1500))
+        GameLedger.payRent(player1, player2, GBP(10), oxfordStreet)
+        GameLedger.payRent(player2, player1, GBP(20), oxfordStreet)
+        GameLedger.purchaseLocation(player1, oxfordStreet)
+        GameLedger.developLocation(player1, GBP(30), oxfordStreet, DevelopmentLevel.MINISTORE)
+
+        assertEquals(GameLedger.getBalance(player1), GBP(480))
+    }
 }

@@ -42,6 +42,7 @@ object GameLedger {
     }
     fun getBalance(player:Player) = GBP(
             history.filter { it.receiver == player }.map { it.amount.value }.sum()
+                    - history.filter { it.payer == player }.map { it.amount.value }.sum()
         )
 
     sealed class Transaction(
