@@ -56,4 +56,17 @@ internal class LocationTest {
         assertEquals(GBP(400), retail.megastore.cost)
     }
 
+    @Test
+    fun `a location can return the cost of developing to a particular level`() {
+        val retail = Location.Retail(
+            name = "My retail location",
+            cost = GBP(300),
+            group = Group.BLUE,
+            undeveloped = DevelopmentType.RentOnly(GBP(10)),
+            ministore = DevelopmentType.CostAndRent(GBP(200), GBP(20)),
+            supermarket = DevelopmentType.CostAndRent(GBP(300), GBP(30)),
+            megastore = DevelopmentType.CostAndRent(GBP(400), GBP(40))
+        )
+        assertEquals(retail.developmentCost(DevelopmentLevel.MINISTORE), GBP(200))
+    }
 }

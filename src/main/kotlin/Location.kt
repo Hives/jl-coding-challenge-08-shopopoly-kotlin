@@ -19,6 +19,15 @@ sealed class Location {
         val supermarket: DevelopmentType.CostAndRent,
         val megastore: DevelopmentType.CostAndRent
     ) : Location(), Purchasable, Rentable
+    {
+        fun developmentCost(developmentLevel: DevelopmentLevel):GBP {
+            return when(developmentLevel) {
+                DevelopmentLevel.MINISTORE -> ministore.cost
+                DevelopmentLevel.SUPERMARKET -> supermarket.cost
+                DevelopmentLevel.MEGASTORE -> megastore.cost
+            }
+        }
+    }
 
     interface Purchasable {
         val cost: GBP
