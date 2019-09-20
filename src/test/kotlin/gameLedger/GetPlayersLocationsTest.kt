@@ -8,6 +8,7 @@ import Group
 import Location
 import Player
 import assertk.assertThat
+import assertk.assertions.isEmpty
 import assertk.assertions.isEqualTo
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -46,8 +47,22 @@ internal class GetPlayersLocationsTest {
     }
 
     @Test
+    fun `does not return factory purchased by another player`() {
+        GameLedger.purchaseLocation(player2, factory)
+        println(factory)
+        assertThat(GameLedger.getPlayersLocations(player1)).isEmpty()
+    }
+
+    @Test
     fun `returns retail location purchased by player`() {
         GameLedger.purchaseLocation(player1, oxfordStreet)
         assertThat(GameLedger.getPlayersLocations(player1)).isEqualTo(listOf(oxfordStreet))
+    }
+
+    @Test
+    fun `returns retail location and factory purchased by player`() {
+        GameLedger.purchaseLocation(player1, oxfordStreet)
+        GameLedger.purchaseLocation(player1, factory)
+        assertThat(GameLedger.getPlayersLocations(player1)).isEqualTo(listOf(oxfordStreet,factory))
     }
 }
