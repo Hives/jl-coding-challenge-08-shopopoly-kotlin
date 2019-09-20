@@ -11,7 +11,7 @@ locations as far as possible.
 
 [Full details here.](https://coding-challenges.jl-engineering.net/challenges/challenge-8/)
 
-## Part 2 - create GameLedger
+## Part 2 - create gameLedger
 
 The game ledger will keep records of who paid who how much money, who bought
 what, and who developed what property. Later we will query the ledger to find

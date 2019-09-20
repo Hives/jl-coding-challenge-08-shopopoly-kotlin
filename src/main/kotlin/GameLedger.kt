@@ -51,6 +51,10 @@ object GameLedger {
         }
     }
 
+    fun getLocationsAndBuildings(player: Player): List<LocationStatus> {
+        return emptyList()
+    }
+
     sealed class Transaction(
         val payer: Role,
         val receiver: Role,
@@ -68,4 +72,8 @@ object GameLedger {
         class Development(player: Player, amount: GBP, val location: Location, val developmentLevel: DevelopmentLevel) :
             Transaction(player, Bank, amount)
     }
+
+
 }
+
+typealias LocationStatus = Pair<Location,DevelopmentLevel>
