@@ -22,6 +22,7 @@ sealed class Location {
     {
         fun developmentCost(developmentLevel: DevelopmentLevel):GBP {
             return when(developmentLevel) {
+                DevelopmentLevel.UNDEVELOPED -> GBP(0)
                 DevelopmentLevel.MINISTORE -> ministore.cost
                 DevelopmentLevel.SUPERMARKET -> supermarket.cost
                 DevelopmentLevel.MEGASTORE -> megastore.cost

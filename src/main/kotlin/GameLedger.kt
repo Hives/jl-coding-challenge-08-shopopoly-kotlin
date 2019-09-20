@@ -62,6 +62,18 @@ object GameLedger {
         history.clear()
     }
 
+    fun getDevelopmentLevel(location: Location.Retail):DevelopmentLevel {
+        val developments = history
+            .filterIsInstance<Transaction.Development>()
+            .filter { it.location == location }
+
+        return if(developments.isEmpty()) {
+            DevelopmentLevel.UNDEVELOPED
+        } else {
+            developments.last().developmentLevel
+        }
+    }
+
     sealed class Transaction(
         val payer: Role,
         val receiver: Role,
