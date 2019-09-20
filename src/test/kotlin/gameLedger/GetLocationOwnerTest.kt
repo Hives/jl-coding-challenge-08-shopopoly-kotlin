@@ -45,10 +45,17 @@ class GetLocationOwnerTest {
     }
 
     @Test
-    fun `returns owner for re-purchased location`() {
+    fun `returns owner for re-purchased retail location`() {
         GameLedger.purchaseLocation(player1, oxfordStreet)
         GameLedger.purchaseLocation(player2, oxfordStreet)
         assertThat(GameLedger.getLocationOwner(oxfordStreet)).isEqualTo(player2)
+    }
+
+    @Test
+    fun `returns owner for re-purchased factory`() {
+        GameLedger.purchaseLocation(player1, factory)
+        GameLedger.purchaseLocation(player2, factory)
+        assertThat(GameLedger.getLocationOwner(factory)).isEqualTo(player2)
     }
 
     @Test
