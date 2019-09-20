@@ -63,7 +63,7 @@ object GameLedger {
         val location = (locations.first() as Transaction.Purchase).location
 
         val e = if(location is Location.Retail) {
-            Either.left(Pair(location, DevelopmentLevel.MEGASTORE))
+            Either.left(Pair(location, DevelopmentLevel.UNDEVELOPED))
         } else {
             Either.right(location as Location.FactoryOrWarehouse)
         }

@@ -1,6 +1,7 @@
 package gameLedger
 
 import Board
+import DevelopmentLevel
 import DevelopmentType
 import GBP
 import GameLedger
@@ -38,5 +39,11 @@ internal class GetLocationsAndBuildingsTest {
     fun `returns factory purchased by player`() {
         GameLedger.purchaseLocation(player1, factory)
         assertThat(GameLedger.getLocationsAndBuildings(player1)).isEqualTo(listOf(Either.right(factory)))
+    }
+
+    @Test
+    fun `returns retail location purchased by player`() {
+        GameLedger.purchaseLocation(player1, oxfordStreet)
+        assertThat(GameLedger.getLocationsAndBuildings(player1)).isEqualTo(listOf(Either.left(Pair(oxfordStreet, DevelopmentLevel.UNDEVELOPED))))
     }
 }
