@@ -1,4 +1,5 @@
-import org.junit.jupiter.api.Assertions.assertEquals
+import assertk.assertThat
+import assertk.assertions.isEqualTo
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
@@ -17,7 +18,7 @@ internal class LocationTest {
 
         assertTrue(go is Location)
         assertTrue(go is Location.Go)
-        assertEquals(go.bonus, GBP(100))
+        assertThat(go.bonus).isEqualTo(GBP(100))
     }
 
     @Test
@@ -26,9 +27,9 @@ internal class LocationTest {
 
         assertTrue(factory is Location)
         assertTrue(factory is Location.FactoryOrWarehouse)
-        assertEquals(GBP(100), factory.cost)
-        assertEquals(GBP(20), factory.rent)
-        assertEquals("My factory", factory.name)
+        assertThat(GBP(100)).isEqualTo(factory.cost)
+        assertThat(GBP(20)).isEqualTo(factory.rent)
+        assertThat("My factory").isEqualTo(factory.name)
     }
 
     @Test
@@ -44,16 +45,16 @@ internal class LocationTest {
         )
         assertTrue(retail is Location)
         assertTrue(retail is Location.Retail)
-        assertEquals("My retail location", retail.name)
-        assertEquals(GBP(300), retail.cost)
-        assertEquals(Group.BLUE, retail.group)
-        assertEquals(GBP(10), retail.undeveloped.rent)
-        assertEquals(GBP(20), retail.ministore.rent)
-        assertEquals(GBP(200), retail.ministore.cost)
-        assertEquals(GBP(30), retail.supermarket.rent)
-        assertEquals(GBP(300), retail.supermarket.cost)
-        assertEquals(GBP(40), retail.megastore.rent)
-        assertEquals(GBP(400), retail.megastore.cost)
+        assertThat("My retail location").isEqualTo(retail.name)
+        assertThat(GBP(300)).isEqualTo(retail.cost)
+        assertThat(Group.BLUE).isEqualTo(retail.group)
+        assertThat(GBP(10)).isEqualTo(retail.undeveloped.rent)
+        assertThat(GBP(20)).isEqualTo(retail.ministore.rent)
+        assertThat(GBP(200)).isEqualTo(retail.ministore.cost)
+        assertThat(GBP(30)).isEqualTo(retail.supermarket.rent)
+        assertThat(GBP(300)).isEqualTo(retail.supermarket.cost)
+        assertThat(GBP(40)).isEqualTo(retail.megastore.rent)
+        assertThat(GBP(400)).isEqualTo(retail.megastore.cost)
     }
 
     @Test
@@ -67,6 +68,6 @@ internal class LocationTest {
             supermarket = DevelopmentType.CostAndRent(GBP(300), GBP(30)),
             megastore = DevelopmentType.CostAndRent(GBP(400), GBP(40))
         )
-        assertEquals(retail.developmentCost(DevelopmentLevel.MINISTORE), GBP(200))
+        assertThat(retail.developmentCost(DevelopmentLevel.MINISTORE)).isEqualTo(GBP(200))
     }
 }

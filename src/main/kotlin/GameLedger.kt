@@ -1,5 +1,3 @@
-import arrow.core.Either
-
 object GameLedger {
     val history = mutableListOf<Transaction>()
 
@@ -53,7 +51,7 @@ object GameLedger {
         }
     }
 
-    fun getLocationsAndBuildings(player: Player): List<LocationStatus> {
+    fun getPlayersLocations(player: Player): List<Location.Purchasable> {
         val locations = history
             .filter { it is Transaction.Purchase }
             .filter { it.payer == player }
@@ -62,13 +60,7 @@ object GameLedger {
 
         val location = (locations.first() as Transaction.Purchase).location
 
-        val e = if(location is Location.Retail) {
-            Either.left(Pair(location, DevelopmentLevel.UNDEVELOPED))
-        } else {
-            Either.right(location as Location.FactoryOrWarehouse)
-        }
-
-        return listOf(e)
+        return listOf(location)
     }
 
     sealed class Transaction(
@@ -89,7 +81,4 @@ object GameLedger {
             Transaction(player, Bank, amount)
     }
 
-
 }
-
-typealias LocationStatus = Either<Pair<Location.Retail, DevelopmentLevel>, Location.FactoryOrWarehouse>

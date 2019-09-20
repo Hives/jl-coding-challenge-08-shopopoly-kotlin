@@ -12,7 +12,6 @@ import Location
 import Player
 import assertk.assertThat
 import assertk.assertions.isEqualTo
-import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 internal class GetBalanceTest {
@@ -31,12 +30,12 @@ internal class GetBalanceTest {
 
     @Test
     fun `player's balance is 0 in a new game`() {
-        assertEquals(GameLedger.getBalance(player1), Credit(GBP(0)))
+        assertThat(GameLedger.getBalance(player1)).isEqualTo(Credit(GBP(0)))
     }
     @Test
     fun `player's balance reflects bonus payment`() {
         GameLedger.payPlayerBonus(player1, GBP(100))
-        assertEquals(GameLedger.getBalance(player1), Credit(GBP(100)))
+        assertThat(GameLedger.getBalance(player1)).isEqualTo(Credit(GBP(100)))
     }
 
     @Test
@@ -54,7 +53,7 @@ internal class GetBalanceTest {
         GameLedger.purchaseLocation(player1, oxfordStreet)
         GameLedger.developLocation(player1, oxfordStreet, DevelopmentLevel.MINISTORE)
 
-        assertEquals(GameLedger.getBalance(player1), Credit(GBP(310)))
+        assertThat(GameLedger.getBalance(player1)).isEqualTo(Credit(GBP(310)))
     }
 
     @Test
@@ -62,6 +61,6 @@ internal class GetBalanceTest {
         GameLedger.payPlayerBonus(player1, GBP(10))
         GameLedger.payRent(player1, player2, GBP(20), oxfordStreet)
 
-        assertEquals(GameLedger.getBalance(player1), Debit(GBP(10)))
+        assertThat(GameLedger.getBalance(player1)).isEqualTo(Debit(GBP(10)))
     }
 }
