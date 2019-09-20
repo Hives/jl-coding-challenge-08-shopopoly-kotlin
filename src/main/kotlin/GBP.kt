@@ -1,4 +1,4 @@
-import java.lang.Math.abs
+import kotlin.math.abs
 
 class GBP(val _value: Int) {
     val value: Int

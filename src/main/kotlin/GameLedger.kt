@@ -54,13 +54,17 @@ object GameLedger {
     fun getPlayersLocations(player: Player): List<Location.Purchasable> {
         val locations = history
             .filter { it is Transaction.Purchase }
-            .filter { it.payer == player }
+//            .filter { it.payer == player }
 
         if (locations.size == 0) return emptyList()
 
         val location = (locations.first() as Transaction.Purchase).location
 
         return listOf(location)
+    }
+
+    fun initialise() {
+        history.clear()
     }
 
     sealed class Transaction(

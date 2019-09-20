@@ -9,6 +9,8 @@ import GameLedger
 import Group
 import Location
 import Player
+import assertk.assertThat
+import assertk.assertions.isEmpty
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
@@ -33,6 +35,13 @@ internal class CreateTransactionsTest {
         assertEquals(Bank, transaction.payer)
         assertEquals(player1, transaction.receiver)
         assertEquals(GBP(123), transaction.amount)
+    }
+
+    @Test
+    fun `initialise clears transactions`(){
+        GameLedger.payPlayerBonus(player1, GBP(123))
+        GameLedger.initialise()
+        assertThat(GameLedger.history).isEmpty()
     }
 
     @Test
