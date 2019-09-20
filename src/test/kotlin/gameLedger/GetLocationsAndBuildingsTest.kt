@@ -8,6 +8,7 @@ import Group
 import Location
 import LocationStatus
 import Player
+import arrow.core.Either
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import org.junit.jupiter.api.Test
@@ -25,9 +26,17 @@ internal class GetLocationsAndBuildingsTest {
         supermarket = DevelopmentType.CostAndRent(GBP(300), GBP(30)),
         megastore = DevelopmentType.CostAndRent(GBP(400), GBP(40))
     )
+    val factory = Location.FactoryOrWarehouse("OriginPark")
 
     @Test
     fun `returns emptyList when no purchases have been made`() {
-        assertThat(GameLedger.getLocationsAndBuildings(player1)).isEqualTo(emptyList<LocationStatus>())
+        val actual = GameLedger.getLocationsAndBuildings(player1)
+        assertThat(actual).isEqualTo(emptyList<LocationStatus>())
+    }
+
+    @Test
+    fun `returns factory purchased by player`() {
+        GameLedger.purchaseLocation(player1, factory)
+        assertThat(GameLedger.getLocationsAndBuildings(player1)).isEqualTo(listOf(Either.right(factory)))
     }
 }

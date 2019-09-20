@@ -17,6 +17,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter:5.5.1")
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0"
     testCompile "com.willowtreeapps.assertk:assertk-jvm:0.19"
+    compile "io.arrow-kt:arrow-core:0.8.2"
 
 }
 

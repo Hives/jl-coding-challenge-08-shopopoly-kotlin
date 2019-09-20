@@ -1,3 +1,5 @@
+import arrow.core.Either
+
 object GameLedger {
     val history = mutableListOf<Transaction>()
 
@@ -44,7 +46,7 @@ object GameLedger {
     fun getBalance(player: Player): Balance {
         val sumOfTransactions = history.filter { it.receiver == player }.map { it.amount.value }.sum() -
                 history.filter { it.payer == player }.map { it.amount.value }.sum()
-        return if (sumOfTransactions >= 0 ) {
+        return if (sumOfTransactions >= 0) {
             Credit(GBP(sumOfTransactions))
         } else {
             Debit(GBP(sumOfTransactions))
@@ -52,7 +54,21 @@ object GameLedger {
     }
 
     fun getLocationsAndBuildings(player: Player): List<LocationStatus> {
-        return emptyList()
+        val locations = history
+            .filter { it is Transaction.Purchase }
+            .filter { it.payer == player }
+
+        if (locations.size == 0) return emptyList()
+
+        val location = (locations.first() as Transaction.Purchase).location
+
+        val e = if(location is Location.Retail) {
+            Either.left(Pair(location, DevelopmentLevel.MEGASTORE))
+        } else {
+            Either.right(location as Location.FactoryOrWarehouse)
+        }
+
+        return listOf(e)
     }
 
     sealed class Transaction(
@@ -76,4 +92,4 @@ object GameLedger {
 
 }
 
-typealias LocationStatus = Pair<Location,DevelopmentLevel>
+typealias LocationStatus = Either<Pair<Location.Retail, DevelopmentLevel>, Location.FactoryOrWarehouse>
