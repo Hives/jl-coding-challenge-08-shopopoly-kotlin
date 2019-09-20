@@ -52,9 +52,11 @@ object GameLedger {
     }
 
     fun getPlayersLocations(player: Player): List<Location.Purchasable> = history
-            .filter { it.payer == player }
-            .filterIsInstance<Transaction.Purchase>()
-            .map { it.location }
+        .filterIsInstance<Transaction.Purchase>()
+        .reversed()
+        .distinctBy { it.location }
+        .filter { it.payer == player }
+        .map { it.location }
 
     fun initialise() {
         history.clear()
