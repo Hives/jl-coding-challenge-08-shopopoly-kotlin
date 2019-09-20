@@ -83,6 +83,21 @@ object GameLedger {
             owners.last().payer
         }
     }
+    fun getRentPayable(location: Location.Rentable):GBP {
+        if(location is Location.FactoryOrWarehouse) {
+            return location.rent
+        }
+        if(location is Location.Retail) {
+            return when(getDevelopmentLevel(location)) {
+                DevelopmentLevel.UNDEVELOPED -> location.undeveloped.rent
+                DevelopmentLevel.SUPERMARKET -> location.supermarket.rent
+                else -> GBP(0)
+            }
+            return GBP(10)
+        }
+
+        return GBP(999)
+    }
 
     sealed class Transaction(
         val payer: Role,
