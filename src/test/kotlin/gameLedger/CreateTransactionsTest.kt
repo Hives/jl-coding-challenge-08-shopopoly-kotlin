@@ -12,6 +12,7 @@ import Player
 import assertk.assertThat
 import assertk.assertions.isEmpty
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 internal class CreateTransactionsTest {
@@ -27,6 +28,12 @@ internal class CreateTransactionsTest {
         supermarket = DevelopmentType.CostAndRent(GBP(300), GBP(30)),
         megastore = DevelopmentType.CostAndRent(GBP(400), GBP(40))
     )
+
+    @BeforeEach
+    fun `reset game ledger`() {
+        GameLedger.initialise()
+    }
+
 
     @Test
     fun `bank pays bonus to player`() {

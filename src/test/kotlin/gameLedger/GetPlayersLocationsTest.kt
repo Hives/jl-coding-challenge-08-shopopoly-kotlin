@@ -9,6 +9,7 @@ import Location
 import Player
 import assertk.assertThat
 import assertk.assertions.isEqualTo
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 internal class GetPlayersLocationsTest {
@@ -26,16 +27,19 @@ internal class GetPlayersLocationsTest {
     )
     val factory = Location.FactoryOrWarehouse("OriginPark")
 
+    @BeforeEach
+    fun `reset game ledger`() {
+        GameLedger.initialise()
+    }
+
     @Test
     fun `returns emptyList when no purchases have been made`() {
-        GameLedger.initialise()
         val actual = GameLedger.getPlayersLocations(player1)
         assertThat(actual).isEqualTo(emptyList<Location>())
     }
 
     @Test
     fun `returns factory purchased by player`() {
-        GameLedger.initialise()
         GameLedger.purchaseLocation(player1, factory)
         println(factory)
         assertThat(GameLedger.getPlayersLocations(player1)).isEqualTo(listOf(factory))
@@ -43,7 +47,6 @@ internal class GetPlayersLocationsTest {
 
     @Test
     fun `returns retail location purchased by player`() {
-        GameLedger.initialise()
         GameLedger.purchaseLocation(player1, oxfordStreet)
         assertThat(GameLedger.getPlayersLocations(player1)).isEqualTo(listOf(oxfordStreet))
     }
