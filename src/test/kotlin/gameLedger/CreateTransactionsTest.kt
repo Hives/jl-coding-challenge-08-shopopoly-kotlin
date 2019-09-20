@@ -11,7 +11,7 @@ import Location
 import Player
 import assertk.assertThat
 import assertk.assertions.isEmpty
-import org.junit.jupiter.api.Assertions.assertEquals
+import assertk.assertions.isEqualTo
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
@@ -39,9 +39,9 @@ internal class CreateTransactionsTest {
     fun `bank pays bonus to player`() {
         GameLedger.payPlayerBonus(player1, GBP(123))
         val transaction = GameLedger.history.last()
-        assertEquals(Bank, transaction.payer)
-        assertEquals(player1, transaction.receiver)
-        assertEquals(GBP(123), transaction.amount)
+        assertThat(Bank).isEqualTo(transaction.payer)
+        assertThat(player1).isEqualTo(transaction.receiver)
+        assertThat(GBP(123)).isEqualTo(transaction.amount)
     }
 
     @Test
@@ -56,30 +56,30 @@ internal class CreateTransactionsTest {
         GameLedger.payRent(player1, player2, GBP(20), oxfordStreet)
 
         val transaction = GameLedger.history.last() as GameLedger.Transaction.Rent
-        assertEquals(player1, transaction.payer)
-        assertEquals(player2, transaction.receiver)
-        assertEquals(GBP(20), transaction.amount)
-        assertEquals(oxfordStreet, transaction.location)
+        assertThat(player1).isEqualTo(transaction.payer)
+        assertThat(player2).isEqualTo(transaction.receiver)
+        assertThat(GBP(20)).isEqualTo(transaction.amount)
+        assertThat(oxfordStreet).isEqualTo(transaction.location)
     }
 
     @Test
     fun `player purchases a retail location`() {
         GameLedger.purchaseLocation(player1, oxfordStreet)
         val transaction = GameLedger.history.last() as GameLedger.Transaction.Purchase
-        assertEquals(player1, transaction.payer)
-        assertEquals(Bank, transaction.receiver)
-        assertEquals(GBP(1000), transaction.amount)
-        assertEquals(oxfordStreet, transaction.location)
+        assertThat(player1).isEqualTo(transaction.payer)
+        assertThat(Bank).isEqualTo(transaction.receiver)
+        assertThat(GBP(1000)).isEqualTo(transaction.amount)
+        assertThat(oxfordStreet).isEqualTo(transaction.location)
     }
 
     @Test
     fun `player develops a location`() {
         GameLedger.developLocation(player1, oxfordStreet, DevelopmentLevel.SUPERMARKET)
         val transaction = GameLedger.history.last() as GameLedger.Transaction.Development
-        assertEquals(player1, transaction.payer)
-        assertEquals(Bank, transaction.receiver)
-        assertEquals(GBP(300), transaction.amount)
-        assertEquals(oxfordStreet, transaction.location)
-        assertEquals(DevelopmentLevel.SUPERMARKET, transaction.developmentLevel)
+        assertThat(player1).isEqualTo(transaction.payer)
+        assertThat(Bank).isEqualTo(transaction.receiver)
+        assertThat(GBP(300)).isEqualTo(transaction.amount)
+        assertThat(oxfordStreet).isEqualTo(transaction.location)
+        assertThat(DevelopmentLevel.SUPERMARKET).isEqualTo(transaction.developmentLevel)
     }
 }
