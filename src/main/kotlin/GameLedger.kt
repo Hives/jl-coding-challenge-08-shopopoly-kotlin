@@ -51,6 +51,8 @@ object GameLedger {
         }
     }
 
+    // lots of duplication in these functions, retrieving transactions. could make some sort of general method for
+    // retrieving transactions from the game ledger to simplify these methods? (mike neilens' idea)
     fun getPlayersLocations(player: Player): List<Location.Purchasable> = history
         .filterIsInstance<Transaction.Purchase>()
         .reversed()
@@ -67,7 +69,7 @@ object GameLedger {
             .filterIsInstance<Transaction.Development>()
             .filter { it.location == location }
 
-        return if (developments.isEmpty()) {
+        return if (developments.isEmpty()) { // can use .lastOrNull() to simplify this
             DevelopmentLevel.UNDEVELOPED
         } else {
             developments.last().developmentLevel
@@ -83,6 +85,7 @@ object GameLedger {
             owners.last().payer
         }
     }
+
     fun getRentPayable(location: Location.Rentable):GBP {
         if(location is Location.FactoryOrWarehouse) {
             return location.rent
